@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!--
+	Big Picture by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+{% load static %}
+<html>
+  <head>
+    <title>Kyonggi Stake House</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+    <noscript
+      ><link rel="stylesheet" href="{% static 'assets/css/noscript.css'%}"
+    /></noscript>
+    <style>
+      table {
+        font-size : 15px;
+        border-top: 1px solid #444444;
+        border-collapse: collapse;
+      }
+      th {
+        border-bottom: 1px solid #444444;
+        padding: 10px;
+        background-color: gray;
+        color : white
+      }
+      .some{
+        background-color: white;
+        color : black;
+      }
+     
+    </style>
+  </head>
+  <body class="is-preload">
+    <!-- Header -->
+    <header id="header">
+      <h1>Kyonggi Stake House</h1>
+      <nav>
+        <ul>
+          <li><a href="#intro">Intro</a></li>
+          <li><a href="#one">Reservation</a></li>
+          <li><a href="#two">Confirmation</a></li>
+          <li><a href="#contact">Staff</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Intro -->
+    <section id="intro" class="main style1 dark fullscreen">
+      <div class="content">
+        <header>
+          <h2>경기 스테이크 하우스</h2>
+        </header>
+        <p>
+          경기 스테이크 하우스에 오신것을 환영합니다.<br />
+          여러분의 최고의 순간을 경기 스테이크 하우스와 함께하세요!
+        </p>
+        <footer>
+          <a href="#one" class="button style2 down">More</a>
+        </footer>
+      </div>
+    </section>
+
+    <!-- One -->
+    <section id="one" class="main style2 right dark fullscreen">
+      <div class="content box style2">
+        <header>
+          <h2>예약하기</h2>
+        </header>
+        <p>
+          * Open-Time : 11:00<br />
+          * Close-Time : 21:00<br />
+          * Break-Time : 15:00 ~ 17:00<br />
+          {% if name != None %}
+          * {{ name }}</span> 님 안녕하세요!
+        </p>
+        <br>
+          <input
+          type="button"
+          value="예약하기"
+          onclick="window.open('reservation/', '_blank', 'width=600 height=850')"
+        />
+        {% else %}
+        <br>
+        <input
+          type="button"
+          value="로그인"
+          onclick="window.open('login/', '_blank', 'width=600 height=600')"
+        />
+        {% endif %}
+      </div>
+      <a href="#two" class="button style2 down anchored">Next</a>
+    </section>
+
+    <!-- Two -->
+    <section id="two" class="main style2 left dark fullscreen">
+      <div class="content box style2">
+        <header>
+          {% if name != None %}
+          <p align="center" ><strong>{{ name }}</strong>님의 예약 현황입니다.</p><br>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">날짜</th>
+                <th scope="col">시간</th>
+                <th scope="col">테이블</th>
+                <th scope="col">인원</th>
+                <th scope="col">상태</th>
+                <th scope="col">예약변경</th>
+                <th scope="col"></th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              {% for reservation in reservation%}
+              {% if reservation.party.phone == phone and reservation.reserv.id == 1 %}
+              <tr>
+              <th class = "some" scope = "row">
+                {{ reservation.spot }}
+              </th>
+              <th class = "some"> {{ reservation.time }}</th>
+              <th class = "some"> {{ reservation.table }}</th>
+              <th class = "some"> {{ reservation.party_num }}</th>
+              <th class = "some"> {{ reservation.reserv }}</th>
+              <th class = "some"> <a href ="{% url 'update' reservation.id %}">변경하기</a></th>
+              <th class = "some"> <span style="color : red"><a href ="{% url 'delete' reservation.id %}">취소</span></a></th>
+            </tr>
+            {% else %}
+            {% endif %}
+            {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <h5 align="center">한 입 크기로 즐기는 소고기 안심</h5>
+          <h3 align="center">[델리치오]
+          <h3 align="center">목초육 안심 찹스테이크</h3>
+          <p align="center">넓은 환경에서 목초를 먹이며 자유롭게 키운 호주산 소 안심을 소개합니다. 소의 가장 부드러운 안심 부위만을 엄선하여, 먹기 좋은 한 입 크기로 커팅했어요. 자연 방목한 덕분에, 고기 자체가 지방이 적고 담백해 남녀노소 누구나 즐기기 좋죠. 양파와 파프리카 등을 넣고 함께 볶아 찹스테이크로 즐겨 보세요.</p>
+          {% endif %}
+        </header>
+        
+      </div>
+      <a href="#contact" class="button style2 down anchored">Next</a>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="main style3 secondary">
+      <div class="content">
+        <header>
+          <h2 style="margin-bottom: 100px;">STAFF</h2>
+          <input
+            class="staff"
+            type="button"
+            value="이동"
+            onclick="location.href='/admin/'"
+          />
+        </header>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+      <!-- Icons -->
+      <ul class="icons">
+        <li>
+          <a href="#" class="icon brands fa-twitter"
+            ><span class="label">Twitter</span></a
+          >
+        </li>
+        <li>
+          <a href="#" class="icon brands fa-facebook-f"
+            ><span class="label">Facebook</span></a
+          >
+        </li>
+        <li>
+          <a href="#" class="icon brands fa-instagram"
+            ><span class="label">Instagram</span></a
+          >
+        </li>
+        <li>
+          <a href="#" class="icon brands fa-linkedin-in"
+            ><span class="label">LinkedIn</span></a
+          >
+        </li>
+        <li>
+          <a href="#" class="icon brands fa-dribbble"
+            ><span class="label">Dribbble</span></a
+          >
+        </li>
+        <li>
+          <a href="#" class="icon brands fa-pinterest"
+            ><span class="label">Pinterest</span></a
+          >
+        </li>
+      </ul>
+
+      <!-- Menu -->
+      <ul class="menu">
+        <li>&copy; Untitled</li>
+        <li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+      </ul>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.poptrox.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+    <script src="{% static 'ssets/js/jquery.scrollex.min.js' %}"></script>
+    <script src="{% static 'assets/js/browser.min.js' %}"></script>
+    <script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+    <script src="{% static 'assets/js/util.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+  </body>
+</html>

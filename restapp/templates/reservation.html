@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>예약</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row mt-5">
+        <div class="col-12 text-center">
+          <h1>예약하기</h1>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-12 text-center">
+            <div>
+              <div>
+                <div class = "col-12">
+                  <h5>모든 예약 현황</h3>
+                  <table class = "table table-light">
+                    <thead class = "thead-light">
+                      <tr>
+                        <th scope="col">날짜</th>
+                        <th scope="col">시간</th>
+                        <th scope="col">테이블</th>
+                        <th scope="col">인원</th>
+                      </tr>
+                    </thead>
+                    <tbody class ="text-dark">
+                      {% for reservation in reservation%}
+                      {% if reservation.reserv.id == 1 %}
+                      <tr>
+                      <th scope = "row">
+                        {{ reservation.spot }}
+                      </th>
+                      <th> {{ reservation.time }}</th>
+                      <th> {{ reservation.table }}</th>
+                      <th> {{ reservation.party_num }}</th>
+                    </tr>
+                    {% else %}
+                    {% endif %}
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <br />
+            <form method="POST" action=".">
+              {% csrf_token %}
+            <div>
+              <label>예약 날짜</label><br>
+              <input type="date" name = "spot" id="currentDate" /><br><br>
+            </div>
+            <div>
+              <label>예약시간</label><br>
+              <label><input type="radio" name="time" value="1" />11:00</label>
+              <label><input type="radio" name="time" value="2" />12:30</label>
+              <label><input type="radio" name="time" value="3" />14:00</label>
+              <label><input type="radio" name="time" value="4" />17:00</label>
+              <label><input type="radio" name="time" value="5" />18:30</label>
+              <label><input type="radio" name="time" value="6" />20:00</label>
+          </div>
+          <br>
+          <div>
+            <label>테이블</label><br>
+              <label><input type="radio" name="table" value="1" />1번(2)</label>
+              <label><input type="radio" name="table" value="2" />2번(2)</label>
+              <label><input type="radio" name="table" value="3" />3번(4)</label>
+              <label><input type="radio" name="table" value="4" />4번(4)</label>
+              <label><input type="radio" name="table" value="5" />5번(6)</label>
+              <label><input type="radio" name="table" value="6" />6번(8)</label>
+          </div>
+          <br>
+            <label>인원</label><br>
+            <label><input type="text" name="party_num" id="party_num"></label>
+            <br>
+            <br>
+            <button type="submit" class="btn btn-primary">예약하기</button>
+            <br>
+            <br>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.getElementById(
+        "currentDate"
+      ).value = new Date().toISOString().substring(0, 10);
+    </script>
+  </body>
+</html>
